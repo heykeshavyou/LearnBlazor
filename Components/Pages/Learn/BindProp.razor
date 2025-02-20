@@ -1,0 +1,109 @@
+﻿@page "/Learn/BindProp"
+@rendermode InteractiveServer
+@using Models
+
+<div class="row" >
+	<div class="col-6 border p-3">
+		<h3 class="text-primary">Product Playground</h3>
+		<hr />
+		<p>
+			Product Name : @Product.Name <br />
+			This Product is : @(Product.IsActive ? "Active" : "Inactive")<br />
+			Price : @Product.price
+			<br />
+
+			@if (!string.IsNullOrEmpty(selected)){
+				<p>selected : @selected <br /> Selected Value : @Product.products.FirstOrDefault(x => x.Key == selected).Value</p>
+			}
+		</p>
+	</div>
+	<div class="col-6 border p-3">
+		<h3 class="text-primary">Product Summary</h3>
+		<hr />
+		Enter Price :
+		<input type="number" @bind="@Product.price" @bind:event="oninput" />
+		<br />
+		Check Active:
+		<input type="checkbox" @bind="@Product.IsActive" @bind:event="oninput" /><br />
+		Select :
+		<select @bind="selected" class="form-control w-50">
+			@foreach (var item in Product.products)
+			{
+				<option value="@item.Key"> @item.Key</option>
+			}
+		</select>
+	</div>
+</div>
+<h1 class="text-success m-3">Product Table</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">Product Name</th>
+			<th scope="col">Price</th>
+			<th scope="col">Is Active</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var item in ProductList)
+		{
+			<tr>
+				<td>
+					<input type="text" @bind="@item.Name" @bind:event="oninput" />
+				</td>
+				<td>
+					<input type="number" @bind="@item.price" @bind:event="oninput" />
+				</td>
+				<td>
+					<input type="checkbox" @bind="@item.IsActive" @bind:event="oninput" />
+				</td>
+			</tr>
+		}
+		
+	</tbody>
+</table>
+
+@code {
+	private string selected = "";
+	Product Product = new()
+		{
+			Id = 1,
+			Name = "Laptop",
+			IsActive = true,
+			price=2,
+			products = new List<products_prop>()
+			{
+			new products_prop{Id=1,Key="size",Value="XXL"},
+			new products_prop{Id=2,Key="color",Value="Red"},
+			}
+		};
+	List<Product> ProductList = new();
+	protected override void OnInitialized()
+	{
+		ProductList.Add(new()
+			{
+				Id = 1,
+				Name = "Midnight Blaze",
+				IsActive = false,
+				products = new List<products_prop>()
+				{
+				new products_prop { Id = 1, Key = "Flavor", Value = "Rose"},
+					 new products_prop { Id = 2, Key = "Size", Value = "20oz"},
+					new products_prop { Id = 3, Key = "Color", Value="Purple" }
+				}
+			});
+
+		ProductList.Add(new()
+			{
+				Id = 2,
+				Name = "Blossom Lily",
+				IsActive = true,
+				products = new List<products_prop>()
+			{
+				new products_prop { Id = 1, Key = "Flavor", Value = "Lily" },
+				new products_prop { Id = 2, Key = "Size", Value = "18oz" },
+				new products_prop {Id = 3,Key = "Color",Value = "White"}
+			}
+			});
+	}
+
+}

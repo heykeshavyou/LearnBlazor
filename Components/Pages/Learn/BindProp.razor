@@ -1,7 +1,6 @@
 ﻿@page "/Learn/BindProp"
-@rendermode InteractiveServer
-@using Models
 
+<PageTitle>Product</PageTitle>
 <div class="row" >
 	<div class="col-6 border p-3">
 		<h3 class="text-primary">Product Playground</h3>
@@ -55,6 +54,34 @@
 				</td>
 				<td>
 					<input type="checkbox" @bind="@item.IsActive" @bind:event="oninput" />
+				</td>
+			</tr>
+		}
+		
+	</tbody>
+</table>
+
+<h1 class="text-success m-3">Product Details Table</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">Product Name</th>
+			<th scope="col">Price</th>
+			<th scope="col">Is Active</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var item in ProductList)
+		{
+			<tr>
+				<td>
+					<p> @item.Name</p>
+				</td>
+				<td>
+					<p> @item.price</p>
+				</td>
+				<td>
+					<p>@(item.IsActive ?"Active":"In Active")</p>
 				</td>
 			</tr>
 		}

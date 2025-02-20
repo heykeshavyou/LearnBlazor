@@ -1,0 +1,24 @@
+﻿
+<div class="col-6 border p-3">
+	<h3 class="text-primary">Product -@product.Id</h3>
+	<hr />
+	<p>Add To Fav : <input type="checkbox" @onchange="addtofav"/> </p>
+
+	<p >Product Name : @product.Name</p>
+	<p>Show Prop : <input type="checkbox" @bind="product.IsActive" @bind:event="oninput" /> </p>
+	@if (product.IsActive)
+	{
+		<p> @product.Name</p>
+		<p> @product.price</p>
+		<p>@(product.IsActive ? "Active" : "In Active")</p>
+	}
+	<_deleteButton Id="@product.Id"></_deleteButton>
+</div>
+@code {
+	[Parameter]
+	public Product product { get; set; }
+	void addtofav(ChangeEventArgs e)
+	{
+
+	}
+}

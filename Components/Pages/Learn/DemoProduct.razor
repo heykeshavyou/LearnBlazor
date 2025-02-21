@@ -2,17 +2,18 @@
 <PageTitle>Demo Product</PageTitle>
 <h3>DemoProduct</h3>
 <div class="row">
-
-
+	<p>Fav : @fav</p>
+	<p>Selected: @Selected</p>
 	@foreach(var item in ProductList)
 	{
-		<_ListViewOfProduct product="@item"></_ListViewOfProduct>
+		<_ListViewOfProduct product="@item" OnFavUpdate="addtofav" SeletedName="seletedname"></_ListViewOfProduct>
 	}
 </div>
 
 
 @code {
-
+	int fav = 0;
+	string Selected = "";
 	List<Product> ProductList = new();
 	protected override void OnInitialized()
 	{
@@ -48,5 +49,20 @@
 	{
 		var prod = ProductList.FirstOrDefault(x => x.Id == a);
 		ProductList.Remove(prod);
+	}
+	void addtofav(bool a)
+	{
+		if (a)
+		{
+			fav++;
+		}
+		else
+		{
+			fav--;
+		}
+	}
+	void seletedname(string name)
+	{
+		Selected = name;
 	}
 }

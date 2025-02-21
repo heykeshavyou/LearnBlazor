@@ -1,5 +1,5 @@
 ﻿
-<div class="col-6 border p-3">
+<div class="col-6 border p-3" @onclick="(e)=>addname(e,product.Name)">
 	<h3 class="text-primary">Product -@product.Id</h3>
 	<hr />
 	<p>Add To Fav : <input type="checkbox" @onchange="addtofav"/> </p>
@@ -17,8 +17,16 @@
 @code {
 	[Parameter]
 	public Product product { get; set; }
-	void addtofav(ChangeEventArgs e)
+	[Parameter]
+	public EventCallback<bool> OnFavUpdate { get; set; }
+	[Parameter]
+	public EventCallback<string> SeletedName { get; set; }
+	private  async Task addtofav(ChangeEventArgs e)
 	{
-
+		await OnFavUpdate.InvokeAsync((bool)(e.Value));
+	}
+	private async Task addname(MouseEventArgs e, string a)
+	{
+		await SeletedName.InvokeAsync(a);
 	}
 }

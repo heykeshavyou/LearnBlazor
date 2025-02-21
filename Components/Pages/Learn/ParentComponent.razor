@@ -1,0 +1,22 @@
+﻿@page "/Learn/ParentComponent"
+<h3>ParentComponent</h3>
+<CascadingValue Value="@MessageForGrandChild" Name="Message">
+	<CascadingValue Value="@LuckyNumber" Name="LuckyNumber">
+		<_ChildComponent child="This is  from child" Showmessage="onclick" child2="This is coming form parent">
+			<Some>This is form child</Some>
+		</_ChildComponent>
+	</CascadingValue>
+</CascadingValue>
+
+@text
+
+
+@code {
+	string text = "";
+	public string MessageForGrandChild = "this is cascanding";
+	public int LuckyNumber = 7;
+	public void onclick()
+	{
+		text = "this is clicked";
+	}
+	}

@@ -1,0 +1,8 @@
+﻿<p>This is message -- @Grandchild</p>
+<p>This is message -- @LuckyNumber</p>
+@code {
+	[CascadingParameter(Name ="Message")]
+	public string? Grandchild { get; set; }
+	[CascadingParameter(Name ="LuckyNumber")]
+	public int LuckyNumber { get; set; }
+}

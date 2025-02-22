@@ -1,0 +1,23 @@
+﻿@page "/blazorjs"
+@inject IJSRuntime _jSRuntime
+<h3>Blazor Js</h3>
+<div class="row">
+	<div class="col-6">
+		<button class="btn btn-secondary" @onclick="popup">Test Comfirm </button>
+	</div>
+	<div class="col-6">
+		<button class="btn btn-secondary mx-2" @onclick="()=>_jSRuntime.ToastRSuccess(message)">Toast Message </button>
+		<button class="btn btn-secondary mx-2" @onclick="()=>_jSRuntime.ToastRWarning(message)">Toast Message </button>
+		<button class="btn btn-secondary mx-2" @onclick="()=>_jSRuntime.SweetMessageSuccess(message)">Sweet Alert</button>
+		<button class="btn btn-secondary mx-2" @onclick="()=>_jSRuntime.SweetMessageError(message)">Sweet Alert</button>
+	</div>
+
+</div>
+@code {
+	private string message = "Are you sure ?";
+	private bool res { get; set; }
+	private async Task popup()
+	{
+		res = await _jSRuntime.InvokeAsync<bool>("confirm", message);
+	}
+}

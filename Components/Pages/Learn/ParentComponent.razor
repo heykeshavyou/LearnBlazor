@@ -2,16 +2,18 @@
 <h3>ParentComponent</h3>
 <CascadingValue Value="@MessageForGrandChild" Name="Message">
 	<CascadingValue Value="@LuckyNumber" Name="LuckyNumber">
-		<_ChildComponent child="This is  from child" Showmessage="onclick" child2="This is coming form parent">
+		<_ChildComponent @ref="_Child" child="This is  from child" Showmessage="onclick" child2="This is coming form parent">
 			<Some>This is form child</Some>
 		</_ChildComponent>
 	</CascadingValue>
 </CascadingValue>
 
 @text
+<button class="btn btn-secondary mx-2" @onclick="()=>_Child.showalert(message)">Sweet Alert</button>
 
 
 @code {
+	private _ChildComponent _Child;
 	string text = "";
 	public string MessageForGrandChild = "this is cascanding";
 	public int LuckyNumber = 7;
@@ -19,4 +21,5 @@
 	{
 		text = "this is clicked";
 	}
-	}
+	string message = "this is coming from parent to child in sweet alert";
+}

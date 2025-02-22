@@ -1,0 +1,33 @@
+﻿
+@page "/Routing"
+@page "/learn/Routing"
+@page "/Routing/CatchAll/{*all}"
+@inject NavigationManager _navigationManager
+<h3>Routing-- @num -- @number</h3>
+<h1>@all</h1>
+<div style="height:1500px " class="container">
+	<NavLink href="Routing?num=Learn&number=21" class="btn btn-dark" >Click me!</NavLink>
+	<button @onclick="gotolink">Go to link</button>
+	<button @onclick="load">click this also</button>
+</div>
+<h1 id="maincontent">maincontent</h1>
+@code {
+	[SupplyParameterFromQuery]
+	public string num { get; set; }
+	[SupplyParameterFromQuery]
+	public string number { get; set; }
+	[Parameter]
+	public string all { get; set; }
+	private void load()
+	{
+		var uri = new Uri(_navigationManager.Uri);
+		var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+		num = query["num"];
+		number = query["number"];
+		//_navigationManager.Refresh(forceReload:true);
+	}
+	private void gotolink()
+	{
+		_navigationManager.NavigateTo("Routing?num=Learn&number=21");
+	}
+}

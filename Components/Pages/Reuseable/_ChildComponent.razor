@@ -1,4 +1,5 @@
-﻿<div>
+﻿@inject IJSRuntime _jSRuntime
+<div>
 	<div class="alert alert-info">
 		@child
 
@@ -22,4 +23,8 @@
 	public RenderFragment? Some { get; set; }
 	[Parameter]
 	public EventCallback Showmessage { get; set; }
+	public async Task showalert(string mes)
+	{
+		await _jSRuntime.SweetMessageSuccess(mes);
+	}
 }
